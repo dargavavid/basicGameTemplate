@@ -2,6 +2,7 @@ var Game = /** @class */ (function () {
     function Game(fps, bg, fg, entities, controlls, interactions) {
         this.lastFrame = 0;
         this.frameCounter = 0;
+        this.isRunning = true;
         this.latency = 1;
         this.fps = fps;
         this.bg = bg;
@@ -51,28 +52,38 @@ var Game = /** @class */ (function () {
     Game.prototype.handleInteractions = function () {
         this.interactions.forEach(function (interaction) { return interaction(); });
     };
-    Game.prototype.run = function (time) {
-        if (time === void 0) { time = 0; }
-        window.requestAnimationFrame(this.run.bind(this));
-        var deltaTime = time - this.lastFrame;
-        this.frameCounter += deltaTime;
-        this.lastFrame = time;
-        if (this.frameCounter > this.fps) {
-            // console.log("fps");
-            this.latency = this.frameCounter / this.fps;
+    Game.prototype.start = function () {
+        if (this.isRunning) {
+            window.requestAnimationFrame(this.start.bind(this));
             this.clearForeground();
             this.executeActiveKeys();
             this.handleInteractions();
             this.renderEntities();
-            this.frameCounter = 0;
         }
     };
-    Game.prototype.run2 = function () {
-        window.requestAnimationFrame(this.run.bind(this));
-        this.clearForeground();
-        this.executeActiveKeys();
-        this.handleInteractions();
-        this.renderEntities();
+    Game.prototype.start2 = function (time) {
+        if (time === void 0) { time = 0; }
+        if (this.isRunning) {
+            window.requestAnimationFrame(this.start2.bind(this));
+            var deltaTime = time - this.lastFrame;
+            this.frameCounter += deltaTime;
+            this.lastFrame = time;
+            if (this.frameCounter > this.fps) {
+                // console.log("fps");
+                this.latency = this.frameCounter / this.fps;
+                this.clearForeground();
+                this.executeActiveKeys();
+                this.handleInteractions();
+                this.renderEntities();
+                this.frameCounter = 0;
+            }
+        }
+    };
+    Game.prototype.pause = function () {
+        this.isRunning = false;
+    };
+    Game.prototype.unpase = function () {
+        this.isRunning = true;
     };
     return Game;
 }());

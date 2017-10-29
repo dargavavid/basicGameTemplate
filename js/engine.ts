@@ -12,6 +12,7 @@ class Game {
   fps: number;
   lastFrame: number = 0;
   frameCounter: number = 0;
+  isRunning: boolean = true;
   latency: number = 1;
   entities: any[];
   controlls: Key[];
@@ -63,26 +64,37 @@ class Game {
   handleInteractions(): void {
     this.interactions.forEach(interaction => interaction());
   }
-  run(time: number = 0): void {
-    window.requestAnimationFrame(this.run.bind(this));
-    const deltaTime = time - this.lastFrame;
-    this.frameCounter += deltaTime;
-    this.lastFrame = time;
-    if (this.frameCounter > this.fps) {
-      // console.log("fps");
-      this.latency = this.frameCounter / this.fps;
+  start(): void {
+    if (this.isRunning) {
+      window.requestAnimationFrame(this.start.bind(this));
       this.clearForeground();
       this.executeActiveKeys();
       this.handleInteractions();
       this.renderEntities();
-      this.frameCounter = 0;
+
     }
   }
-  run2(): void {
-    window.requestAnimationFrame(this.run.bind(this));
-    this.clearForeground();
-    this.executeActiveKeys();
-    this.handleInteractions();
-    this.renderEntities();
+  start2(time: number = 0): void {
+    if (this.isRunning) {
+      window.requestAnimationFrame(this.start2.bind(this));
+      const deltaTime = time - this.lastFrame;
+      this.frameCounter += deltaTime;
+      this.lastFrame = time;
+      if (this.frameCounter > this.fps) {
+        // console.log("fps");
+        this.latency = this.frameCounter / this.fps;
+        this.clearForeground();
+        this.executeActiveKeys();
+        this.handleInteractions();
+        this.renderEntities();
+        this.frameCounter = 0;
+      }
+    }
+  }
+  pause(): void {
+    this.isRunning = false;
+  }
+  unpase(): void {
+    this.isRunning = true;
   }
 }
