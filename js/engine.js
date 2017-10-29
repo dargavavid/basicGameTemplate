@@ -53,8 +53,8 @@ var Game = /** @class */ (function () {
         this.interactions.forEach(function (interaction) { return interaction(); });
     };
     Game.prototype.start = function () {
+        window.requestAnimationFrame(this.start.bind(this));
         if (this.isRunning) {
-            window.requestAnimationFrame(this.start.bind(this));
             this.clearForeground();
             this.executeActiveKeys();
             this.handleInteractions();
@@ -63,8 +63,8 @@ var Game = /** @class */ (function () {
     };
     Game.prototype.start2 = function (time) {
         if (time === void 0) { time = 0; }
+        window.requestAnimationFrame(this.start2.bind(this));
         if (this.isRunning) {
-            window.requestAnimationFrame(this.start2.bind(this));
             var deltaTime = time - this.lastFrame;
             this.frameCounter += deltaTime;
             this.lastFrame = time;
@@ -82,7 +82,7 @@ var Game = /** @class */ (function () {
     Game.prototype.pause = function () {
         this.isRunning = false;
     };
-    Game.prototype.unpase = function () {
+    Game.prototype.unpause = function () {
         this.isRunning = true;
     };
     return Game;

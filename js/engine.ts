@@ -65,8 +65,8 @@ class Game {
     this.interactions.forEach(interaction => interaction());
   }
   start(): void {
+    window.requestAnimationFrame(this.start.bind(this));
     if (this.isRunning) {
-      window.requestAnimationFrame(this.start.bind(this));
       this.clearForeground();
       this.executeActiveKeys();
       this.handleInteractions();
@@ -75,8 +75,8 @@ class Game {
     }
   }
   start2(time: number = 0): void {
+    window.requestAnimationFrame(this.start2.bind(this));
     if (this.isRunning) {
-      window.requestAnimationFrame(this.start2.bind(this));
       const deltaTime = time - this.lastFrame;
       this.frameCounter += deltaTime;
       this.lastFrame = time;
@@ -94,7 +94,7 @@ class Game {
   pause(): void {
     this.isRunning = false;
   }
-  unpase(): void {
+  unpause(): void {
     this.isRunning = true;
   }
 }
