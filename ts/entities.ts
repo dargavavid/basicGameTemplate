@@ -9,8 +9,9 @@ class Entity {
   currentImageIndex: number = 0;
   vx: number;
   vy: number;
+  color: string;
   isAnimated: boolean;
-  constructor(x: number, y: number, width: number, height: number, imgsrcs: string[], vx: number = 0, vy: number = 0, isAnimated: boolean = true) {
+  constructor(x: number, y: number, width: number, height: number, vx: number = 0, vy: number = 0, color: string = "black", imgsrcs: string[], isAnimated: boolean = true) {
     this.x = x;
     this.y = y;
     this.width = width;
@@ -18,6 +19,7 @@ class Entity {
     this.images = this.setImages(imgsrcs);
     this.vx = vx;
     this.vy = vy;
+    this.color = color;
     this.isAnimated = isAnimated;
   }
   setImages(srcs: string[]): any {
