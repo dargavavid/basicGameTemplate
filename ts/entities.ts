@@ -11,7 +11,7 @@ class Entity {
   vy: number;
   color: string;
   isAnimated: boolean;
-  constructor(x: number, y: number, width: number, height: number, vx: number = 0, vy: number = 0, color: string = "black", imgsrcs: string[], isAnimated: boolean = true) {
+  constructor(x: number, y: number, width: number, height: number, vx: number = 0, vy: number = 0, color: string = "black", imgsrcs: string[] = [], isAnimated: boolean = true) {
     this.x = x;
     this.y = y;
     this.width = width;
