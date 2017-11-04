@@ -48,6 +48,7 @@ class Entity {
       }
       context.drawImage(this.images[this.currentImageIndex], this.x, this.y);
     }else {
+      context.fillStyle = this.color;
       context.fillRect(this.x, this.y, this.width, this.height);
     }
   }
