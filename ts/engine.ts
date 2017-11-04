@@ -59,7 +59,11 @@ class Game {
     this.fgCtx.clearRect(0, 0, this.fg.width, this.fg.height);
   }
   renderEntities(): void {
-    this.entities.forEach(entity => entity.render(this.fgCtx))
+    for (const arr of this.entities) {
+      for (const el of arr) {
+        el.render(this.fgCtx);
+      }
+    }
   }
   handleInteractions(): void {
     this.interactions.forEach(interaction => interaction());
